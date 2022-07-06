@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainMenu">
+
+    <fragment
+        android:id="@+id/licencePlateNumberInput"
+        android:name="com.godelsoft.driverlogin.ui.login.fragments.LicencePlateNumberFragment"
+        android:label="fragment_licence_plate_number_input"
+        tools:layout="@layout/fragment_licence_plate_number" >
+        <action
+            android:id="@+id/action_licencePlateNumberInput_to_vehicleRegistrationCertificate"
+            app:destination="@id/vehicleRegistrationCertificate" />
+        <action
+            android:id="@+id/action_licencePlateNumberInput_to_driversLicence"
+            app:destination="@id/driversLicence" />
+    </fragment>
+    <fragment
+        android:id="@+id/vehicleRegistrationCertificate"
+        android:name="com.godelsoft.driverlogin.ui.login.fragments.VehicleRegistrationCertificateFragment"
+        android:label="fragment_vehicle_registration_certificate"
+        tools:layout="@layout/fragment_vehicle_registration_certificate" >
+        <action
+            android:id="@+id/action_vehicleRegistrationCertificate_to_driversLicence"
+            app:destination="@id/driversLicence" />
+    </fragment>
+    <fragment
+        android:id="@+id/driversLicence"
+        android:name="com.godelsoft.driverlogin.ui.login.fragments.DriversLicenceFragment"
+        android:label="fragment_drivers_licence"
+        tools:layout="@layout/fragment_drivers_licence" >
+        <action
+            android:id="@+id/action_driversLicence_to_home3"
+            app:destination="@id/mainMenu" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainMenu"
+        android:name="com.godelsoft.driverlogin.ui.login.fragments.MainMenuFragment"
+        android:label="fragment_main_menu"
+        tools:layout="@layout/fragment_main_menu" />
+</navigation>

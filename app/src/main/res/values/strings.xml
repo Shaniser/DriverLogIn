@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">DriverLogIn</string>
+    <string name="login_failed">Авторизация не удалась</string>
+    <string name="invalid_licence_plate_number">Некорректный номер ТС</string>
+    <string name="invalid_vehicle_registration_certificate">Некорректный СТС</string>
+    <string name="invalid_drivers_licence">Некорректный номер ВУ</string>
+    <string name="no_info">Нет информации</string>
+    <string name="skip_alert_title">Внимание</string>
+    <string name="skip_alert">Вы действительно хотите пропустить этот шаг?</string>
+    <string name="skip">Пропустить</string>
+    <string name="cancel">Отмена</string>
+    <string name="dialog_tag">Dialog</string>
+    <string name="preference_key_licence_plate_number">preference_key_licence_plate_number</string>
+    <string name="preference_key_vehicle_registration_certificate">preference_key_vehicle_registration_certificate</string>
+    <string name="preference_key_drivers_license_number">preference_key_drivers_license_number</string>
+    <string name="preference_key_last_session_data">com.godelsoft.driverlogin</string>
+    <string name="enter_dl">Введите номер ВУ</string>
+    <string name="next">Продолжить</string>
+    <string name="enter_lpn">Введите номер ТС</string>
+    <string name="lp_number">Номер ТС</string>
+    <string name="vr_certificate">Номер СТС</string>
+    <string name="dl_number">Номер ВУ</string>
+    <string name="auth_again">Авторизоваться заново</string>
+    <string name="lpn_sample">А 999 АА 99</string>
+    <string name="dl_sample">12 АБ 345678</string>
+    <string name="enter_vrc">Введите номер СТС</string>
+</resources>
