@@ -71,7 +71,7 @@ class LicencePlateNumberFragment : Fragment() {
         }
 
         nextButton.setOnClickListener {
-            loginViewModel.saveTemp(
+            loginViewModel.saveLoginStep(
                 licencePlateNumberEditText.text.toString(),
                 LoginStep.LICENCE_PLATE_NUMBER)
 
@@ -85,7 +85,7 @@ class LicencePlateNumberFragment : Fragment() {
                 getString(R.string.skip),
                 getString(R.string.cancel)
             ) {
-                loginViewModel.saveTemp(null, LoginStep.LICENCE_PLATE_NUMBER)
+                loginViewModel.saveLoginStep(null, LoginStep.LICENCE_PLATE_NUMBER)
                 navController.navigate(R.id.driversLicence)
 
             }.show(manager, getString(R.string.dialog_tag))

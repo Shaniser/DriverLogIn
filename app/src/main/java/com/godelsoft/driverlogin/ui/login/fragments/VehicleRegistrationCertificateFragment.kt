@@ -75,7 +75,7 @@ class VehicleRegistrationCertificateFragment  : Fragment() {
         }
 
         nextButton.setOnClickListener {
-            loginViewModel.saveTemp(
+            loginViewModel.saveLoginStep(
                 vehicleRegistrationCertificateEditText.text.toString(),
                 LoginStep.VEHICLE_REGISTRATION_CERTIFICATE
             )
@@ -90,7 +90,7 @@ class VehicleRegistrationCertificateFragment  : Fragment() {
                 getString(R.string.skip),
                 getString(R.string.cancel)
             ) {
-                loginViewModel.saveTemp(null, LoginStep.VEHICLE_REGISTRATION_CERTIFICATE)
+                loginViewModel.saveLoginStep(null, LoginStep.VEHICLE_REGISTRATION_CERTIFICATE)
                 navController.navigate(R.id.driversLicence)
 
             }.show(manager, getString(R.string.dialog_tag))

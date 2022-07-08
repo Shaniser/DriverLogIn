@@ -1,5 +1,8 @@
 package com.godelsoft.driverlogin.data
 
+/**
+ * Universal result class with Success and Error types
+ */
 sealed class Result<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : Result<T>()

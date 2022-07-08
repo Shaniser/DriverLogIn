@@ -3,30 +3,33 @@ package com.godelsoft.driverlogin.data
 import com.godelsoft.driverlogin.data.model.LoggedInUser
 import com.godelsoft.driverlogin.data.model.TempUser
 
+/**
+ * In-memory current session data storage
+ */
 class LoginRepository(private val dataSource: LoginDataSource) {
 
-    var loggingInUser = TempUser()
+    /**
+     * Temp user to save data between login steps
+     */
+    var loginInProcessUser = TempUser()
 
-    // in-memory cache of the loggedInUser object
+    /**
+     * In-memory cache of the loggedInUser object
+     */
     var user: LoggedInUser? = null
         private set
 
     val isLoggedIn: Boolean
         get() = user != null
 
-    fun tryLoadSavedSession(): Result<LoggedInUser> {
-        val result = dataSource.tryLoadSavedSession()
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
-        }
-        return result
-    }
+    /**
+     * Loading last saved user info
+     */
+    fun tryLoadSavedSession(): Result<LoggedInUser> = dataSource.tryLoadSavedSession()
 
-    fun logout() {
-        user = null
-        dataSource.logout()
-    }
-
+    /**
+     * Setup in-memory cache user and save data
+     */
     fun login(licencePlateNumber: String?, vehicleRegistrationCertificate: String?, driversLicence: String): Result<LoggedInUser> {
         // handle login
         val result = dataSource.login(licencePlateNumber, vehicleRegistrationCertificate, driversLicence)
@@ -36,6 +39,14 @@ class LoginRepository(private val dataSource: LoginDataSource) {
         }
 
         return result
+    }
+
+    /**
+     * Remove in-memory cache user and clear data
+     */
+    fun logout() {
+        user = null
+        dataSource.logout()
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {

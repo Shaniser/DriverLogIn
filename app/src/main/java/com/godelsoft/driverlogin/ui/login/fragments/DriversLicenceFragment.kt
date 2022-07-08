@@ -69,7 +69,7 @@ class DriversLicenceFragment : Fragment() {
         }
 
         nextButton.setOnClickListener {
-            loginViewModel.saveTemp(
+            loginViewModel.saveLoginStep(
                 driversLicenseNumberEditText.text.toString(),
                 LoginStep.DRIVERS_LICENCE)
 

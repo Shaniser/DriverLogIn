@@ -7,7 +7,7 @@ import com.godelsoft.driverlogin.R
 import com.godelsoft.driverlogin.data.LoginRepository
 import com.godelsoft.driverlogin.data.Result
 import com.godelsoft.driverlogin.data.model.LoggedInUser
-import com.godelsoft.driverlogin.utils.InputHandling
+import com.godelsoft.driverlogin.utils.InputUtils
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -17,11 +17,15 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun tryLoadSavedSession(): Result<LoggedInUser> {
-        val logInResult = loginRepository.tryLoadSavedSession()
 
-        if (logInResult is Result.Success) {
-            logInResult.let {
+    /**
+     * Try load last session data and login via saved user
+     */
+    fun tryLoadSavedSession(): Result<LoggedInUser> {
+        val tempUserResult = loginRepository.tryLoadSavedSession()
+
+        if (tempUserResult is Result.Success) {
+            tempUserResult.let {
                 login(
                     it.data.licencePlateNumber,
                     it.data.vehicleRegistrationCertificate,
@@ -29,37 +33,39 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             }
         }
 
-        return logInResult
+        return tempUserResult
     }
 
-    fun saveTemp(value: String?, step: LoginStep) {
+    /**
+     * Save login step in temp user
+     */
+    fun saveLoginStep(value: String?, step: LoginStep) {
         when (step) {
             LoginStep.LICENCE_PLATE_NUMBER -> {
-                loginRepository.loggingInUser.licencePlateNumber = value
-                loginRepository.loggingInUser.vehicleRegistrationCertificate = null
+                loginRepository.loginInProcessUser.licencePlateNumber = value
+                loginRepository.loginInProcessUser.vehicleRegistrationCertificate = null
             }
 
             LoginStep.VEHICLE_REGISTRATION_CERTIFICATE -> {
-                loginRepository.loggingInUser.vehicleRegistrationCertificate = value
+                loginRepository.loginInProcessUser.vehicleRegistrationCertificate = value
 
                 if (value == null)
-                    loginRepository.loggingInUser.licencePlateNumber = null
+                    loginRepository.loginInProcessUser.licencePlateNumber = null
 
-                if (loginRepository.loggingInUser.licencePlateNumber == null)
-                    loginRepository.loggingInUser.vehicleRegistrationCertificate = null
+                if (loginRepository.loginInProcessUser.licencePlateNumber == null)
+                    loginRepository.loginInProcessUser.vehicleRegistrationCertificate = null
             }
 
             LoginStep.DRIVERS_LICENCE -> {
-                loginRepository.loggingInUser.driversLicenseNumber = value
+                loginRepository.loginInProcessUser.driversLicenseNumber = value
                 if (value != null) {
                     login(
-                        loginRepository.loggingInUser.licencePlateNumber,
-                        loginRepository.loggingInUser.vehicleRegistrationCertificate,
+                        loginRepository.loginInProcessUser.licencePlateNumber,
+                        loginRepository.loginInProcessUser.vehicleRegistrationCertificate,
                         value
                     )
                 }
             }
-            else -> {}
         }
     }
 
@@ -103,19 +109,19 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private fun isLicencePlateNumber(licencePlateNumber: String?): Boolean {
         if (licencePlateNumber == null) return false
 
-        return InputHandling.isCorrectLicencePlateNumber(licencePlateNumber)
+        return InputUtils.isCorrectLicencePlateNumber(licencePlateNumber)
     }
 
     private fun isVehicleRegistrationCertificate(vehicleRegistrationCertificate: String?): Boolean {
         if (vehicleRegistrationCertificate == null) return false
 
-        return InputHandling.isCorrectVehicleRegistrationCertificate(vehicleRegistrationCertificate)
+        return InputUtils.isCorrectVehicleRegistrationCertificate(vehicleRegistrationCertificate)
     }
 
     private fun isDriversLicenseNumber(driversLicenseNumber: String?): Boolean {
         if (driversLicenseNumber == null) return false
 
-        return InputHandling.isCorrectDriversLicenseNumber(driversLicenseNumber)
+        return InputUtils.isCorrectDriversLicenseNumber(driversLicenseNumber)
     }
 
     fun logout() {

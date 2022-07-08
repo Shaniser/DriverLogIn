@@ -2,7 +2,7 @@ package com.godelsoft.driverlogin.utils
 
 import java.util.*
 
-class InputHandling {
+class InputUtils {
     companion object {
         private fun mapEnToRuLetters(string: String): String {
             var formatted = string
@@ -29,7 +29,7 @@ class InputHandling {
             return formatted
         }
 
-        fun formatString(string: String): String {
+        private fun formatString(string: String): String {
             return mapEnToRuLetters(string.uppercase(Locale.ROOT))
         }
 
